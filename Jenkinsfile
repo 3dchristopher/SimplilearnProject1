@@ -9,16 +9,21 @@ pipeline {
 	}
 
 	stages {
+		stage('Pull') {
+			steps {
+				checkout scm 
+			}
+		}
 		stage('Build') {
 			steps {
 				echo 'Building apache server image'
-				sh 'docker build -t webServer .' 
+				sh 'docker build -t webserver .' 
 			}
 		}
 		stage('Deploy') {
 			steps {
 				echo 'Running apache container'
-				sh 'docker run -d -p 8082:80 webServer'
+				sh 'docker run -d -p 8082:80 webserver'
 			}
 		}
 	}

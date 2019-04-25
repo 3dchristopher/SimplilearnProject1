@@ -19,10 +19,13 @@ node {
          * For this example, we're using a Volkswagen-type approach ;-) */
 
         app = docker.image('webserver').withRun("-p 8082:80") { c ->
-           sh 'echo Container Built'   
+           sh 'echo Container Built'  app.inside {
+               app.inside {
+                  sh 'cat /usr/local/apache2/htdocs/index.html'   
+               }
         }
-        app.inside {
-           sh 'cat /usr/local/apache2/htdocs/index.html'   
+           
         }
+       
     }
 }

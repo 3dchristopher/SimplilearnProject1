@@ -11,15 +11,13 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("simplilearnproject1")
+        app = docker.build("webserver")
     }
 
-    stage('Test image') {
+    stage('Run image') {
         /* Ideally, we would run a test framework against our image.
          * For this example, we're using a Volkswagen-type approach ;-) */
 
-        app.inside {
-            sh 'echo "Tests passed"'
-        }
+        app = docker.image('webserver').withRun("-d -p 8082:80")
     }
 }

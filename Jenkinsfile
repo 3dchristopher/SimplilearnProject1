@@ -18,7 +18,7 @@ node {
         /* Ideally, we would run a test framework against our image.
          * For this example, we're using a Volkswagen-type approach ;-) */
 
-        app = docker.image('webserver').withRun("-d -p 8082:80") { c ->
+        app = docker.image('webserver').withRun("-p 8082:80") { c ->
            sh 'echo hello world'   
         }
     }

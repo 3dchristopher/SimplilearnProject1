@@ -11,18 +11,26 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("webserver")
+        app = docker.build("3dchristopher/SimplilearnProject1")
     }
 
-    stage('Run image') {
+    stage('Test image') {
         /* Ideally, we would run a test framework against our image.
          * For this example, we're using a Volkswagen-type approach ;-) */
 
-        app = docker.image('webserver').withRun("-p 8082:80").inside() { c ->
-           sh 'cat /usr/local/apache2/htdocs/index.html'
+        app.inside {
+            sh 'echo "Tests passed"'
         }
-           
+    }
+
+    stage('Push image') {
+        /* Finally, we'll push the image with two tags:
+         * First, the incremental build number from Jenkins
+         * Second, the 'latest' tag.
+         * Pushing multiple tags is cheap, as all the layers are reused. */
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
         }
-       
     }
 }

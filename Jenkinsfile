@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("devopsimage")
+        app = docker.build("christopherrlittle/simplilearndevopsimage")
     }
 
     stage('Test image') {
@@ -29,7 +29,7 @@ node {
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
          docker.withRegistry( '', 'docker-hub' ) {
-            app.push("christopherrlittle/simplilearndevopsimage")
+            app.push("latest")
          }
     }
 }

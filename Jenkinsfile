@@ -28,7 +28,7 @@ node {
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
-         docker.withRegistry( 'https://cloud.docker.com/repository/docker/christopherrlittle/simplilearn', 'docker-hub' ) {
+         docker.withRegistry( 'docker-hub' ) {
             app.push("devopsimage")
          }
     }

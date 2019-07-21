@@ -32,4 +32,20 @@ node {
             app.push("latest")
          }
     }
+    
+    stage('Pull image from DockerHub') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
+
+        docker.withRegistry( '', 'docker-hub' ) {
+            app.pull("latest")
+        }
+    }
+    
+    stage('Rebuild image') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
+
+        app = docker.build("christopherrlittle/simplilearndevopsimage")
+    }
 }

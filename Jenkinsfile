@@ -29,23 +29,15 @@ node {
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
          docker.withRegistry( '', 'docker-hub' ) {
+            app.push("${env.BUILD_NUMBER}")
             app.push("latest")
          }
-    }
-    
-    stage('Pull image from DockerHub') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
-
-        docker.withRegistry( '', 'docker-hub' ) {
-            app.pull("latest")
-        }
     }
     
     stage('Rebuild image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("christopherrlittle/simplilearndevopsimage")
+        app = docker.build("christopherrlittle/simplilearndevopsimage:latest")
     }
 }

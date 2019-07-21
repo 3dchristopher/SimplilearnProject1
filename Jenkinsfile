@@ -31,7 +31,7 @@ node {
         steps{
             script {
                 docker.withRegistry() {
-                    app.push("latest")
+                    app.push("devopsimage")
                 }
             }
         }

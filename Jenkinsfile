@@ -30,7 +30,7 @@ node {
          * Pushing multiple tags is cheap, as all the layers are reused. */
         steps{
             script {
-                docker.withRegistry( 'christopherrlittle/simplilearn', 'docker-hub' ) {
+                docker.withRegistry( 'https://cloud.docker.com/u/christopherrlittle/repository/docker/christopherrlittle/simplilearn', 'docker-hub' ) {
                     app.push("latest")
                 }
             }
